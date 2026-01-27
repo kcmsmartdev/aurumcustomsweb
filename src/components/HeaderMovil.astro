@@ -1,0 +1,130 @@
+---
+
+import LogoAurumCustomsSac from "../assets/images/logo_aurum_customs_sac.webp"
+
+interface submenuLista{
+  nombre: string,
+  ruta: string,
+}
+
+
+interface menuLista{
+  nombre: string,
+  ruta: string,
+  submenu?: submenuLista[],
+};
+
+const menu:menuLista[] = [
+  {nombre:" Inicio", ruta:"/"},
+  {nombre:"Nosotros", ruta:"/nosotros_aurum_custom"},
+  {nombre:"Servicios", ruta:"/nuestros_servicios",
+   submenu: [
+    {nombre:"Agenciamiento de aduanas", ruta:"/agenciamiento-de-aduanas-especializado"},
+    {nombre:"Especializado asesoría y consultoría en comercio exterior", ruta:"/especializado-asesoria-y-consultoria-en-comercio-exterior"},
+    {nombre:"Servicios Complementarios a su disposición", ruta:"/servicios-complementarios-a-su-disposicion"},
+   ]
+  },
+  {nombre:"Servicios", ruta:"/nuestros_servicios"},
+  {nombre:"Contacto", ruta:"/contacto"},
+  {nombre:"Tracking", ruta:"/tracking"},
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="w-full mx-auto lg:hidden fixed top-0 z-50 bg-white shadow">
+
+  <!-- Top bar -->
+  <div class="flex justify-between items-center p-3">
+    <a href="/">
+      <img src={LogoAurumCustomsSac.src} class="w-32" />
+    </a>
+
+    <iconify-icon
+      id="menuIcon"
+      icon="line-md:menu"
+      width="32"
+      class="cursor-pointer"
+    ></iconify-icon>
+  </div>
+
+  <!-- Menu -->
+  <nav
+  id="menu"
+  class="
+    fixed top-16 left-0 w-full
+    bg-green-500
+    transform -translate-y-full opacity-0
+    transition-all duration-300 ease-out
+    pointer-events-none
+  "
+>
+  <ul class="flex flex-col gap-3 p-4">
+    {menu.map((item) => {
+      const isActive =
+        currentPath === item.ruta ||
+        (item.submenu && item.submenu.some(sub => currentPath === sub.ruta));
+
+      const isTracking = item.ruta === "/tracking";
+
+      return (
+        <li>
+          <a
+            href={item.ruta}
+            class={`
+              block py-2 px-3 rounded font-medium transition-colors
+              ${isTracking ? "bg-yellow-400 text-black" : "text-white"}
+              ${isActive ? "bg-white text-green-600" : ""}
+            `}
+          >
+            {item.nombre}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</nav>
+
+</header>
+
+
+<script>
+  const icon = document.getElementById("menuIcon");
+  const menu = document.getElementById("menu");
+
+  let abierto = false;
+
+  icon?.addEventListener("click", () => {
+    abierto = !abierto;
+
+    if (abierto && menu) {
+      menu.classList.remove(
+        "-translate-y-full",
+        "opacity-0",
+        "pointer-events-none"
+      );
+      menu.classList.add("translate-y-0", "opacity-100");
+
+      icon.setAttribute(
+        "icon",
+        "line-md:menu-to-close-alt-transition"
+      );
+    } else {
+      menu.classList.add(
+        "-translate-y-full",
+        "opacity-0",
+        "pointer-events-none"
+      );
+      menu.classList.remove("translate-y-0", "opacity-100");
+
+      icon.setAttribute(
+        "icon",
+        "line-md:close-to-menu-alt-transition"
+      );
+    }
+  });
+</script>
+
+
+
+

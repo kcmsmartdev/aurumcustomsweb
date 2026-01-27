@@ -1,23 +1,27 @@
+---
+import HeaderMovil from "../components/HeaderMovil.astro";
+import "../styles/global.css";
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Agencia de Aduana, importación y exportación - Aurum Customs SAC</title>
+		<meta name="description" content="Aurum Customs SAC, Agencia de Aduanas con flota de transporte propia, especializada en agenciamiento de aduana, seguro de carga y comercio exterior." />
+		<link rel="canonical" href="https://aurumcustoms.com/" />
+		<meta property="og:type" content="website" />
+	
+		<script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 	</head>
 	<body>
+		<HeaderMovil />
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+
