@@ -17,14 +17,13 @@ interface menuLista{
 const menu:menuLista[] = [
   {nombre:" Inicio", ruta:"/"},
   {nombre:"Nosotros", ruta:"/nosotros_aurum_custom"},
-  {nombre:"Servicios", ruta:"/nuestros_servicios",
+  {nombre:"Servicios", ruta:"",
    submenu: [
     {nombre:"Agenciamiento de aduanas", ruta:"/agenciamiento-de-aduanas-especializado"},
     {nombre:"Especializado asesoría y consultoría en comercio exterior", ruta:"/especializado-asesoria-y-consultoria-en-comercio-exterior"},
     {nombre:"Servicios Complementarios a su disposición", ruta:"/servicios-complementarios-a-su-disposicion"},
    ]
   },
-  {nombre:"Servicios", ruta:"/nuestros_servicios"},
   {nombre:"Contacto", ruta:"/contacto"},
   {nombre:"Tracking", ruta:"/tracking"},
 ];
@@ -76,7 +75,7 @@ const currentPath = Astro.url.pathname;
                   class={`
                     w-full flex justify-between items-center
                     py-2 px-3 rounded font-medium
-                    ${isActive ? "text-blue-600" : "text-gray-800"}
+                    ${isActive ? "text-primario font-bold text-18px" : "text-negro"}
                   `}
                   data-submenu-trigger
                 >
@@ -111,8 +110,8 @@ const currentPath = Astro.url.pathname;
                             block py-1.5 px-3 rounded text-sm
                             ${
                               isSubActive
-                                ? "bg-red-600 text-white"
-                                : "bg-red-200 text-blue-700"
+                                ? " text-primario underline font-bold text-18px"
+                                : " text-primario"
                             }
                           `}
                         >
@@ -133,11 +132,11 @@ const currentPath = Astro.url.pathname;
                   ${
                     isTracking
                       ? isActive
-                        ? "bg-primario text-blanco"
-                        : "bg-secundario text-negro"
+                        ? "bg-secundario/50 text-negro font-bold text-18px"
+                        : "bg-secundario/20 text-negro"
                       : isActive
-                        ? "text-primario"
-                        : "text-gray-800"
+                        ? "text-primario text-18px font-blod"
+                        : "text-negro"
                   }
                 `}
               >

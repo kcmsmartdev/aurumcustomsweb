@@ -1,0 +1,124 @@
+---
+import LogoAurumCustomsSac from "../assets/images/logo_aurum_customs_sac_version_pc.webp"
+
+interface submenuLista{
+  nombre: string,
+  ruta: string,
+}
+
+
+interface menuLista{
+  nombre: string,
+  ruta: string,
+  submenu?: submenuLista[],
+};
+
+const menu:menuLista[] = [
+  {nombre:" Inicio", ruta:"/"},
+  {nombre:"Nosotros", ruta:"/nosotros_aurum_custom"},
+  {nombre:"Servicios", ruta:"",
+   submenu: [
+    {nombre:"Agenciamiento de aduanas", ruta:"/agenciamiento-de-aduanas-especializado"},
+    {nombre:"Especializado asesoría y consultoría en comercio exterior", ruta:"/especializado-asesoria-y-consultoria-en-comercio-exterior"},
+    {nombre:"Servicios Complementarios a su disposición", ruta:"/servicios-complementarios-a-su-disposicion"},
+   ]
+  },
+  {nombre:"Contacto", ruta:"/contacto"},
+  {nombre:"Tracking", ruta:"/tracking"},
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 z-50 w-full bg-white font-Montserrat hidden lg:block">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between border-b border-gray-300">
+
+    <!-- Logo -->
+    <a href="/" class="shrink-0">
+      <img
+        src={LogoAurumCustomsSac.src}
+        class="w-44 h-auto"
+        loading="eager"
+        fetchpriority="high"
+        alt="Logo Aurum Customs SAC"
+      />
+    </a>
+
+    <!-- Navegación -->
+    <nav>
+      <ul class="flex items-center gap-8">
+
+        {menu.map((item) => {
+          const isTracking = item.ruta === "/tracking";
+
+          const isActive =
+            currentPath === item.ruta ||
+            (item.submenu && item.submenu.some(sub => currentPath === sub.ruta));
+
+          return (
+            <li class="relative group">
+
+              {/* ITEM PRINCIPAL */}
+              <a
+                href={item.ruta || "#"}
+                class={`
+                  px-3 py-2 font-medium transition-colors
+                  ${
+                    isTracking
+                      ? isActive
+                        ? "bg-secundario text-negro font-bold rounded-4xl py-3 px-7"
+                        : "bg-secundario/30 text-negro  hover:bg-secundario/50 rounded-4xl py-3 px-7"
+                      : isActive
+                        ? "text-primario font-bold"
+                        : "text-negro hover:text-primario"
+                  }
+                `}
+              >
+                {item.nombre}
+              </a>
+
+              {/* SUBMENÚ (SERVICIOS) */}
+              {item.submenu && (
+                <ul
+                  class="
+                    absolute left-0 top-full mt-2 w-80
+                    bg-white shadow-lg rounded-md
+                    opacity-0 invisible translate-y-2
+                    transition-all duration-200 ease-out
+                    group-hover:opacity-100
+                    group-hover:visible
+                    group-hover:translate-y-0
+                  "
+                >
+                  {item.submenu.map((sub) => {
+                    const isSubActive = currentPath === sub.ruta;
+
+                    return (
+                      <li>
+                        <a
+                          href={sub.ruta}
+                          class={`
+                            block px-4 py-2 text-sm transition-colors
+                            ${
+                              isSubActive
+                                ? "bg-secundario text-negro font-bold "
+                                : "bg-secundario/20 text-negro hover:bg-secundario/40"
+                            }
+                          `}
+                        >
+                          {sub.nombre}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+
+            </li>
+          );
+        })}
+
+      </ul>
+    </nav>
+  </div>
+</header>
