@@ -16,6 +16,7 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "@iconify-json/cuida": "^1.2.5",
     "@iconify-json/line-md": "^1.2.14"
   }
 }
